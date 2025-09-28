@@ -1,0 +1,38 @@
+# Test configuration cho unit tests và integration tests
+server:
+  port: 0  # Random port cho tests
+
+spring:
+  # Sử dụng H2 in-memory database cho tests
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  
+  # Cấu hình JPA cho tests
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # Tạo và xóa schema cho mỗi test
+    show-sql: false  # Tắt SQL logging trong tests
+    properties:
+      hibernate:
+        format_sql: false
+  
+  # Cấu hình H2 console (không cần thiết cho tests)
+  h2:
+    console:
+      enabled: false
+  
+  # Cấu hình security cho tests
+  security:
+    jwt:
+      secret: testSecretKey123456789012345678901234567890
+      expiration: 3600000  # 1 hour
+
+# Cấu hình logging cho tests
+logging:
+  level:
+    com.oem.ev: WARN
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
