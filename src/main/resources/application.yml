@@ -1,0 +1,45 @@
+# File cấu hình chính của Spring Boot application
+server:
+  # Cấu hình port cho server (mặc định 8080)
+  port: 8080
+
+spring:
+  # Cấu hình database connection
+  datasource:
+    # URL kết nối đến MySQL database
+    url: jdbc:mysql://localhost:3306/ev_warranty_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    # Username để kết nối database
+    username: root
+    # Password để kết nối database
+    password: password
+    # Driver class cho MySQL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  # Cấu hình JPA/Hibernate
+  jpa:
+    # Chế độ hiển thị SQL queries (để debug)
+    show-sql: true
+    # Format SQL queries cho dễ đọc
+    properties:
+      hibernate:
+        format_sql: true
+        # Chế độ tạo/update database schema
+        hbm2ddl:
+          auto: update
+    # Database dialect cho MySQL
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  
+  # Cấu hình security
+  security:
+    # Cấu hình JWT secret key (trong production nên dùng environment variable)
+    jwt:
+      secret: mySecretKey123456789012345678901234567890
+      expiration: 86400000 # 24 hours in milliseconds
+
+# Cấu hình logging
+logging:
+  level:
+    # Log level cho các package cụ thể
+    com.oem.ev: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
